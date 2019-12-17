@@ -6,99 +6,60 @@ namespace AoC2019
     {
         static void Main(string[] args)
         {
-            //DayOne();
-            //DayTwoA();
-            //DayTwoB();
-            //DayThreeA();
-            DayFour();
+            Console.WriteLine("Give day you want to see:");
+            var s = Console.ReadLine();
+            if (int.TryParse(s, out var day))
+            {
+                switch (day)
+                {
+                    case 1:
+                        DayOne(); break;
+                    case 2:
+                        DayTwo(); break;
+                    case 3:
+                        DayThree(); break;
+                    case 4:
+                        DayFour(); break;
+                    case 5:
+                        DayFive(); break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid day or day that has not been implemented");
+            }
         }
+
+        private static void DayFive()
+        {
+            var day = new Day5.Day5Solver();
+            Console.WriteLine($"Day 5 part A result = {day.StepA()}");
+            Console.WriteLine($"Day 5 part B result = {day.StepB()}");
+        }
+
         private static void DayFour()
         {
             var day4 = new Day4.Day4Solver();
             Console.WriteLine($"Day 4 part A result = {day4.StepA()}");
             Console.WriteLine($"Day 4 part B result = {day4.StepB()}");
-            var x = day4.CheckAdjecentSameDigitsMax2(new int[] { 1,1,1,1,2,2 });
+            var x = day4.CheckAdjecentSameDigitsMax2(new int[] { 1, 1, 1, 1, 2, 2 });
         }
-        private static void DayThreeA()
+        private static void DayThree()
         {
             var day3 = new Day3.Day3Solver();
             Console.WriteLine($"Day 3 part A result = {day3.StepA()}");
             Console.WriteLine($"Day 3 part B result = {day3.StepB()}");
         }
-  
-        private static void DayTwoB()
+
+
+        private static void DayTwo()
         {
-            var result = 19690720;
-          
-            int noun, verb;
-
-            for (noun = 0; noun < 100; noun++)
-            {
-                for (verb = 0; verb < 100; verb++)
-                {
-                    var mem = new Data().Codes;
-                    mem[1] = 12 + noun;
-                    mem[2] = 2 + verb;
-                    RunOpCode(mem);
-                    if (mem[0] == result)
-                        Console.WriteLine($"Noun: {mem[1]} & Verb: {mem[2]} return value {(100 * mem[1]) + mem[2]}");
-                }
-            }
-
-            Console.WriteLine("done");
+            var day2 = new Day2.Day2Solver();
+            Console.WriteLine($"Day 3 part A result = {day2.StepA()}");
+            Console.WriteLine($"Day 3 part B result = {day2.StepB()}");
         }
-
-        private static void DayTwoA()
-        {
-            var codes = new Data().Codes;
-            codes[1] = 12;
-            codes[2] = 2;
-            RunOpCode(codes);
-            Console.WriteLine(codes[0]);
-        }
-
-        private static void RunOpCode(int[] codes)
-        {
-            int i = 0;
-            do
-            {
-                i = RunOpcode(codes, i);
-
-            } while (codes[i] != 99);
-        }
-
-        private static int RunOpcode(int[] codes, int i)
-        {
-            var opcode = codes[i];
-            var inputOne = codes[codes[i + 1]];
-            var inputTwo = codes[codes[i + 2]];
-            var pos = codes[i + 3];
-            int result = 0;
-            result = CalculateOp(opcode, inputOne, inputTwo);
-
-            codes[pos] = result;
-            return i + 4;
-        }
-
-        private static int CalculateOp(int opcode, int inputOne, int inputTwo)
-        {
-            int result;
-            if (opcode == 1)
-            {
-                result = inputOne + inputTwo;
-            }
-            else if (opcode == 2)
-            {
-                result = inputOne * inputTwo;
-            }
-            else
-            {
-                throw new Exception("Opcode should be one or two");
-            }
-
-            return result;
-        }
-
 
         private static void DayOne()
         {
